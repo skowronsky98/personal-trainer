@@ -33,7 +33,7 @@ class CollectionHomeFragment : Fragment() {
         viewPager.adapter = homeCollectionAdapter
 
         val tabLayout = binding.tabLayout
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+        TabLayoutMediator(tabLayout, viewPager) { tab, position->
             tab.text = weekdays(position)
         }.attach()
     }
