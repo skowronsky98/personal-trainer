@@ -30,6 +30,7 @@
 
         <EditText
             android:id="@+id/username"
+            android:text="@={signupViewModel.username}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -43,6 +44,7 @@
 
         <EditText
             android:id="@+id/email"
+            android:text="@={signupViewModel.email}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -56,6 +58,7 @@
 
         <EditText
             android:id="@+id/password"
+            android:text="@={signupViewModel.password}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -69,6 +72,7 @@
 
         <Button
             android:id="@+id/signup_btn"
+            android:onClick="@{() -> signupViewModel.eventSignupStart()}"
             style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
             android:layout_width="0dp"
             android:layout_marginStart="8dp"
@@ -100,6 +104,7 @@
             android:text="@string/log_in"
             android:textColor="@color/hyperLink"
             android:textSize="16sp"
+            android:onClick="@{() -> signupViewModel.eventNavLoginStart()}"
             app:layout_constraintBottom_toBottomOf="@+id/navigationText"
             app:layout_constraintStart_toEndOf="@+id/navigationText" />
 

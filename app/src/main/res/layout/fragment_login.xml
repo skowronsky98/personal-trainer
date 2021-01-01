@@ -13,14 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--            android:text="@={loginViewModel.email}"-->
 
-        <!--            android:text="@={loginViewModel.password}"-->
 
         <EditText
             android:id="@+id/username"
             android:hint="@string/email"
-            android:text="@={loginViewModel.login}"
+            android:text="@={loginViewModel.email}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -35,6 +33,7 @@
         <EditText
             android:id="@+id/password"
             android:hint="@string/password"
+            android:text="@={loginViewModel.password}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -45,7 +44,6 @@
             app:layout_constraintStart_toStartOf="@+id/username"
             app:layout_constraintTop_toBottomOf="@+id/username" />
 
-        <!--            android:onClick="@{() -> loginViewModel.setLogin()}"-->
 
         <Button
             android:id="@+id/login_btn_login"
@@ -69,8 +67,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--            android:text="@string/log_in_to_snkrs"-->
-        <!--            android:textColor="@color/colorTitleBlack"-->
+
 
 
         <TextView
@@ -90,15 +87,13 @@
             android:layout_marginStart="8dp"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{() -> loginViewModel.eventNavSignupStart()}"
             android:text="@string/signup"
             android:textColor="@color/hyperLink"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/navigationText"
             app:layout_constraintStart_toEndOf="@+id/navigationText" />
 
-
-
-        <!--            android:onClick="@{() -> loginViewModel.setEventNavToSignup()}"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

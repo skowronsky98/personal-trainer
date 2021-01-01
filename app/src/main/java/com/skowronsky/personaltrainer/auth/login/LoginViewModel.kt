@@ -5,11 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class LoginViewModel : ViewModel() {
-    val login = MutableLiveData<String>()
+    val email = MutableLiveData<String>()
+    val password = MutableLiveData<String>()
 
     private val _eventLogin = MutableLiveData<Boolean>()
     val eventLogin :LiveData<Boolean>
         get() = _eventLogin
+
+    private val _eventNavSignup = MutableLiveData<Boolean>()
+    val eventNavSignup : LiveData<Boolean>
+        get() = _eventNavSignup
+
 
     fun eventLoginStart() {
         _eventLogin.value = true
@@ -17,6 +23,14 @@ class LoginViewModel : ViewModel() {
 
     fun eventLoginFinished(){
         _eventLogin.value = false
+    }
+
+    fun eventNavSignupStart(){
+        _eventNavSignup.value = true
+    }
+
+    fun eventNavSignupFinished(){
+        _eventNavSignup.value = false
     }
 
 }

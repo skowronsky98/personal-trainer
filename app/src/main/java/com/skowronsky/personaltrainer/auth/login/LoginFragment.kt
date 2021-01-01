@@ -1,8 +1,8 @@
 package com.skowronsky.personaltrainer.auth.login
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import com.skowronsky.personaltrainer.MainActivity
 import com.skowronsky.personaltrainer.R
 import com.skowronsky.personaltrainer.databinding.FragmentLoginBinding
 
@@ -34,14 +38,37 @@ class LoginFragment : Fragment() {
 
         viewModel.eventLogin.observe(viewLifecycleOwner, Observer { login ->
             if (login){
-                Toast.makeText(context, viewModel.login.value?: "null", Toast.LENGTH_SHORT).show()
+                //TODO Authentication
+
+                navToMainActivity()
+                Toast.makeText(context, viewModel.email.value?: "null", Toast.LENGTH_SHORT).show()
                 viewModel.eventLoginFinished()
             }
         })
 
+        viewModel.eventNavSignup.observe(viewLifecycleOwner, Observer { navSignup ->
+            if(navSignup){
+                navToSignup()
+                Toast.makeText(context, "Navigation", Toast.LENGTH_SHORT).show()
+
+
+                viewModel.eventNavSignupFinished()
+            }
+        })
+
+
         return binding.root
     }
 
+    fun navToMainActivity(){
+        val intent = Intent(context, MainActivity::class.java)
+        activity?.finish()
+        startActivity(intent)
+    }
 
+    fun navToSignup(){
+        val navController = findNavController(this)
+        navController.navigate(R.id.action_loginFragment_to_signupFragment)
+    }
 
 }
