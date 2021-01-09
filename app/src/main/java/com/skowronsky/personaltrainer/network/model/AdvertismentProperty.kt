@@ -8,8 +8,7 @@ data class AdvertismentProperty(
     val surname: String,
     val age: Int,
     val bio: String,
+    val active: Boolean,
     val price: Double,
     val description: String
-) {
-
-}
+)

@@ -22,7 +22,7 @@ class CollectionHomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_collection_home, container, false)
+        binding = FragmentCollectionHomeBinding.inflate(inflater, container, false)
 
         return binding.root
     }

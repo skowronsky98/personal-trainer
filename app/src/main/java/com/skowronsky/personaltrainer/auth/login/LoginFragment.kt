@@ -25,10 +25,11 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,R.layout.fragment_login, container,false
-        )
+//        binding = DataBindingUtil.inflate(
+//            inflater,R.layout.fragment_login, container,false
+//        )
 
+        binding = FragmentLoginBinding.inflate(inflater)
 
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding.loginViewModel = viewModel

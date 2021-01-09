@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="dashboardViewModel"
+            name="viewModel"
             type="com.skowronsky.personaltrainer.ui.dashboard.DashboardViewModel" />
     </data>
 
@@ -14,23 +14,25 @@
         android:layout_height="match_parent"
         tools:context=".ui.dashboard.DashboardFragment">
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/meals_recycler_view"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:scrollbars="vertical"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            tools:listitem="@layout/item_advertisment" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/advertismet_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:listData="@{viewModel.properties}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_advertisment" />
 
 
-        <TextView
+        <ImageView
             android:id="@+id/info"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="@{dashboardViewModel.response}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:apiStatus="@{viewModel.status}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

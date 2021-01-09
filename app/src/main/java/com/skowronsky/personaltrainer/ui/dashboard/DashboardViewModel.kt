@@ -1,51 +1,49 @@
 package com.skowronsky.personaltrainer.ui.dashboard
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.skowronsky.personaltrainer.network.PersonalTrainerApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import com.skowronsky.personaltrainer.network.model.AdvertismentProperty
 import kotlinx.coroutines.launch
-import retrofit2.Callback
-import retrofit2.Response
+import java.lang.Exception
+
+enum class PersonalTrainerApiStatus { LOADING, ERROR, DONE }
+
 
 class DashboardViewModel : ViewModel() {
 
-    private val _response = MutableLiveData<String>()
-    val response : LiveData<String>
-        get() = _response
+    private val _status = MutableLiveData<PersonalTrainerApiStatus>()
+    val status: LiveData<PersonalTrainerApiStatus>
+        get() = _status
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "Essa"
-    }
-    val text: LiveData<String>
-        get() = _text
-
-    private var viewModelJob = Job()
-    private var coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val _properties = MutableLiveData<List<AdvertismentProperty>>()
+    val properties: LiveData<List<AdvertismentProperty>>
+        get() = _properties
 
     init {
         getTrainersAdvertismentProperties()
     }
 
     private fun getTrainersAdvertismentProperties(){
-        coroutineScope.launch {
-            var getPropertiesDeferred = PersonalTrainerApi.retrofitService.getAdvertismentPropertiesAsync()
+        viewModelScope.launch {
+            _status.value = PersonalTrainerApiStatus.LOADING
             try {
-                var listResult = getPropertiesDeferred.await()
-                _response.value = "Succes: ${listResult.size}"
+                Log.i("retrofit","before")
+                _properties.value = PersonalTrainerApi.retrofitService.getAdvertismentProperties()
+                Log.i("retrofit","after")
+                _status.value = PersonalTrainerApiStatus.DONE
 
-            }catch (t:Throwable){
-                _response.value = "Failure: " + t
+            }catch (e:Exception){
+//                Log.i("retrofit",_properties.value!!.size.toString())
+                _status.value = PersonalTrainerApiStatus.ERROR
+                _properties.value = ArrayList()
 
             }
         }
+
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 }

@@ -23,7 +23,7 @@ class ProfileFragment : Fragment() {
 
 
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         binding.viewModel = viewModel
 
