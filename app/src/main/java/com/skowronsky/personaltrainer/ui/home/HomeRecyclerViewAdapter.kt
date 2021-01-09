@@ -7,14 +7,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.skowronsky.personaltrainer.R
 import com.skowronsky.personaltrainer.model.Meal
-import kotlinx.android.synthetic.main.item_meal.view.*
 
 class HomeRecyclerViewAdapter(private val dailyMeals: List<Meal>) : RecyclerView.Adapter<HomeRecyclerViewAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val titleView : TextView = itemView.meal_title
-        val nameView : TextView = itemView.meal_name
-        val recipeView : TextView = itemView.meal_recipe
+
+
+//        val titleView : TextView = itemView.trainer_surname
+//        val nameView : TextView = itemView.trainer_firstname
+//        val recipeView : TextView = itemView.trainer_bio
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -26,9 +27,9 @@ class HomeRecyclerViewAdapter(private val dailyMeals: List<Meal>) : RecyclerView
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = dailyMeals[position]
 
-        holder.titleView.text = currentItem.title
-        holder.nameView.text = currentItem.name
-        holder.recipeView.text = currentItem.recipe
+//        holder.titleView.text = currentItem.title
+//        holder.nameView.text = currentItem.name
+//        holder.recipeView.text = currentItem.recipe
     }
 
     override fun getItemCount(): Int = dailyMeals.size

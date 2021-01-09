@@ -14,8 +14,5 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-
-        val navController = findNavController(R.id.nav_auth_host_fragment)
-
     }
 }

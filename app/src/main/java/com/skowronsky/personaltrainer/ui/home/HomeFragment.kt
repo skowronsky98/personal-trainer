@@ -37,11 +37,11 @@ class HomeFragment() : Fragment() {
 
         val meals = listOf(
             Meal("Essa","Byku","XDDDDDD"),
-            Meal("Chuj","sdfg","XDDDDDD"),
+            Meal("Test","sdfg","XDDDDDD"),
             Meal("sadf","Bsdfgyku","sdfg"),
-            Meal("sfdgsfd","Byku","sfdg"),
-            Meal("sfdgsfd","Byku","sfdg"),
-            Meal("sfdgsfd","Byku","sfdg"),
+            Meal("sfdgsfd","f","sfdg"),
+            Meal("sfdgsfd","f","sfdg"),
+            Meal("sfdgsfd","f","sfdg"),
             Meal("sfdgsfd","Byku","sfdg"),
             Meal("sfdgsfd","Byku","sfdg"),
             Meal("Essdfgfsdgsa","Byku","XDDDDDD")
