@@ -23,51 +23,43 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     val status: LiveData<PersonalTrainerApiStatus>
         get() = _status
 
-    private val _properties = MutableLiveData<List<Advertisment>>()
-    val properties: LiveData<List<Advertisment>>
-        get() = _properties
 
     private val database = getDatabase(application)
     private val personalTrainerRepository = PersonalTrainerRepository(database)
 
-    init {
-        getTrainersAdvertismentProperties()
-//        refreshData()
-//        val ad = DatabaseAdvertisment("q","q","q",12,"a",true,2.2,"s")
-//        database.advertismentDao.insertAll(ad)
-//
-//        val data = database.advertismentDao.getAdvertisments()
-//        Log.i("room", data.value!![0].firstname)
+    val properties = personalTrainerRepository.advertisments
 
+    init {
+            refreshData()
     }
 
     private fun refreshData() {
         viewModelScope.launch {
             personalTrainerRepository.refreshAdvertisments()
-            _properties.value = personalTrainerRepository.advertisments.value
+//            _properties = personalTrainerRepository.advertisments
         }
     }
 
-    private fun getTrainersAdvertismentProperties(){
-        viewModelScope.launch {
-            _status.value = PersonalTrainerApiStatus.LOADING
-            try {
-                Log.i("retrofit","before")
-                val container = PersonalTrainerApi.retrofitService.getAdvertismentProperties()
+//    private fun getTrainersAdvertismentProperties(){
+//        viewModelScope.launch {
+//            _status.value = PersonalTrainerApiStatus.LOADING
+//            try {
+//                Log.i("retrofit","before")
+//                val container = PersonalTrainerApi.retrofitService.getAdvertismentProperties()
+//
+////                _properties.value = NetworkAdvertismentContainer(container).asDomainModel()
+////                Log.i("retrofit", container.advertisments.size.toString())
+//                _status.value = PersonalTrainerApiStatus.DONE
+//
+//            }catch (e:Exception){
+//                Log.i("retrofit",e.message.toString())
+//                _status.value = PersonalTrainerApiStatus.ERROR
+////                _properties.value = ArrayList()
+//
+//            }
+//        }
+//    }
 
-                _properties.value = NetworkAdvertismentContainer(container).asDomainModel()
-//                Log.i("retrofit", container.advertisments.size.toString())
-                _status.value = PersonalTrainerApiStatus.DONE
-
-            }catch (e:Exception){
-                Log.i("retrofit",e.message.toString())
-                _status.value = PersonalTrainerApiStatus.ERROR
-                _properties.value = ArrayList()
-
-            }
-        }
-
-    }
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DashboardViewModel::class.java)) {

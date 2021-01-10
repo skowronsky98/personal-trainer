@@ -8,7 +8,6 @@ import com.skowronsky.personaltrainer.domain.Advertisment
 import com.skowronsky.personaltrainer.network.PersonalTrainerApi
 import com.skowronsky.personaltrainer.network.dto.NetworkAdvertismentContainer
 import com.skowronsky.personaltrainer.network.dto.asDatabaseModel
-import com.skowronsky.personaltrainer.network.dto.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -21,9 +20,9 @@ class PersonalTrainerRepository(private val database : PersonalTrainerDatabase) 
 
     suspend fun refreshAdvertisments() {
         withContext(Dispatchers.IO){
-            val ads = PersonalTrainerApi.retrofitService.getAdvertismentProperties()
+            val adv = PersonalTrainerApi.retrofitService.getAdvertismentProperties()
 
-            database.advertismentDao.insertAll(*NetworkAdvertismentContainer(ads).asDatabaseModel())
+            database.advertismentDao.insertAll(*NetworkAdvertismentContainer(adv).asDatabaseModel())
         }
     }
 }
