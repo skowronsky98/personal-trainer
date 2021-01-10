@@ -25,7 +25,7 @@ class HomeRecyclerViewAdapter(private val dailyMeals: List<Meal>) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = dailyMeals[position]
+//        val currentItem = dailyMeals[position]
 
 //        holder.titleView.text = currentItem.title
 //        holder.nameView.text = currentItem.name

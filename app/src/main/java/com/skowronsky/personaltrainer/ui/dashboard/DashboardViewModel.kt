@@ -1,30 +1,51 @@
 package com.skowronsky.personaltrainer.ui.dashboard
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.skowronsky.personaltrainer.database.entity.DatabaseAdvertisment
+import com.skowronsky.personaltrainer.database.getDatabase
+import com.skowronsky.personaltrainer.domain.Advertisment
 import com.skowronsky.personaltrainer.network.PersonalTrainerApi
-import com.skowronsky.personaltrainer.network.model.AdvertismentProperty
+import com.skowronsky.personaltrainer.network.dto.AdvertismentDTO
+import com.skowronsky.personaltrainer.network.dto.NetworkAdvertismentContainer
+import com.skowronsky.personaltrainer.network.dto.asDomainModel
+import com.skowronsky.personaltrainer.repository.PersonalTrainerRepository
 import kotlinx.coroutines.launch
-import java.lang.Exception
+import java.lang.reflect.Array
 
 enum class PersonalTrainerApiStatus { LOADING, ERROR, DONE }
 
 
-class DashboardViewModel : ViewModel() {
+class DashboardViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _status = MutableLiveData<PersonalTrainerApiStatus>()
     val status: LiveData<PersonalTrainerApiStatus>
         get() = _status
 
-    private val _properties = MutableLiveData<List<AdvertismentProperty>>()
-    val properties: LiveData<List<AdvertismentProperty>>
+    private val _properties = MutableLiveData<List<Advertisment>>()
+    val properties: LiveData<List<Advertisment>>
         get() = _properties
+
+    private val database = getDatabase(application)
+    private val personalTrainerRepository = PersonalTrainerRepository(database)
 
     init {
         getTrainersAdvertismentProperties()
+//        refreshData()
+//        val ad = DatabaseAdvertisment("q","q","q",12,"a",true,2.2,"s")
+//        database.advertismentDao.insertAll(ad)
+//
+//        val data = database.advertismentDao.getAdvertisments()
+//        Log.i("room", data.value!![0].firstname)
+
+    }
+
+    private fun refreshData() {
+        viewModelScope.launch {
+            personalTrainerRepository.refreshAdvertisments()
+            _properties.value = personalTrainerRepository.advertisments.value
+        }
     }
 
     private fun getTrainersAdvertismentProperties(){
@@ -32,12 +53,14 @@ class DashboardViewModel : ViewModel() {
             _status.value = PersonalTrainerApiStatus.LOADING
             try {
                 Log.i("retrofit","before")
-                _properties.value = PersonalTrainerApi.retrofitService.getAdvertismentProperties()
-                Log.i("retrofit","after")
+                val container = PersonalTrainerApi.retrofitService.getAdvertismentProperties()
+
+                _properties.value = NetworkAdvertismentContainer(container).asDomainModel()
+//                Log.i("retrofit", container.advertisments.size.toString())
                 _status.value = PersonalTrainerApiStatus.DONE
 
             }catch (e:Exception){
-//                Log.i("retrofit",_properties.value!!.size.toString())
+                Log.i("retrofit",e.message.toString())
                 _status.value = PersonalTrainerApiStatus.ERROR
                 _properties.value = ArrayList()
 
@@ -45,5 +68,13 @@ class DashboardViewModel : ViewModel() {
         }
 
     }
-
+    class Factory(val app: Application) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(DashboardViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return DashboardViewModel(app) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewmodel")
+        }
+    }
 }

@@ -6,25 +6,25 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skowronsky.personaltrainer.databinding.ItemAdvertismentBinding
-import com.skowronsky.personaltrainer.network.model.AdvertismentProperty
+import com.skowronsky.personaltrainer.domain.Advertisment
 
-class AdvertismentAdapter : ListAdapter<AdvertismentProperty, AdvertismentAdapter.AdvertismentPropertyViewHolder>(DiffCallback) {
+class AdvertismentAdapter : ListAdapter<Advertisment, AdvertismentAdapter.AdvertismentPropertyViewHolder>(DiffCallback) {
 
     class AdvertismentPropertyViewHolder (private val binding : ItemAdvertismentBinding):
         RecyclerView.ViewHolder(binding.root){
-        fun bind(advertismentProperty: AdvertismentProperty){
-            binding.property = advertismentProperty
+        fun bind(advertisment: Advertisment){
+            binding.property = advertisment
             binding.executePendingBindings()
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<AdvertismentProperty>() {
-        override fun areItemsTheSame(oldItem: AdvertismentProperty, newItem: AdvertismentProperty): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<Advertisment>() {
+        override fun areItemsTheSame(oldItem: Advertisment, newItem: Advertisment): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: AdvertismentProperty, newItem: AdvertismentProperty): Boolean {
-            return oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: Advertisment, newItem: Advertisment): Boolean {
+            return oldItem == newItem
         }
     }
 
@@ -33,12 +33,9 @@ class AdvertismentAdapter : ListAdapter<AdvertismentProperty, AdvertismentAdapte
         return AdvertismentPropertyViewHolder(ItemAdvertismentBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
-    /**
-     * Replaces the contents of a view (invoked by the layout manager)
-     */
     override fun onBindViewHolder(holder: AdvertismentPropertyViewHolder, position: Int) {
         val advertismentProperty = getItem(position)
-        // TODO (09) Call the onClick Function from the onClickListener in a lambda from setOnClickListener
+
         holder.bind(advertismentProperty)
     }
 }

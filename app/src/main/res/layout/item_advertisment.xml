@@ -6,7 +6,7 @@
     <data>
         <variable
             name="property"
-            type="com.skowronsky.personaltrainer.network.model.AdvertismentProperty" />
+            type="com.skowronsky.personaltrainer.domain.Advertisment" />
     </data>
 
     <androidx.cardview.widget.CardView

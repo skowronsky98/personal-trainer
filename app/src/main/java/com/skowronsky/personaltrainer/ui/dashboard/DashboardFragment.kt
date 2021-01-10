@@ -13,7 +13,10 @@ class DashboardFragment : Fragment() {
 //    private lateinit var binding: FragmentDashboardBinding
 
     private val viewModel: DashboardViewModel by lazy {
-        ViewModelProvider(this).get(DashboardViewModel::class.java)
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onViewCreated()"
+        }
+        ViewModelProvider(this,DashboardViewModel.Factory(activity.application)).get(DashboardViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -21,7 +24,7 @@ class DashboardFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentDashboardBinding.inflate(inflater)
+        val binding = FragmentDashboardBinding.inflate(inflater,container,false)
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel

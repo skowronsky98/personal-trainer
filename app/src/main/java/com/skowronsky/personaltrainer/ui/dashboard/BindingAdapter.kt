@@ -2,18 +2,16 @@ package com.skowronsky.personaltrainer.ui.dashboard
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.skowronsky.personaltrainer.R
-import com.skowronsky.personaltrainer.network.model.AdvertismentProperty
+import com.skowronsky.personaltrainer.domain.Advertisment
+import com.skowronsky.personaltrainer.network.dto.AdvertismentDTO
 
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView,data : List<AdvertismentProperty>?){
+fun bindRecyclerView(recyclerView: RecyclerView,data : List<Advertisment>?){
     val adapter = recyclerView.adapter as AdvertismentAdapter
     adapter.submitList(data)
-
 }
 
 @BindingAdapter("apiStatus")
