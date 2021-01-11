@@ -1,10 +1,11 @@
-package com.skowronsky.personaltrainer
+package com.skowronsky.personaltrainer.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.skowronsky.personaltrainer.R
 
 class MainActivity : AppCompatActivity() {
 

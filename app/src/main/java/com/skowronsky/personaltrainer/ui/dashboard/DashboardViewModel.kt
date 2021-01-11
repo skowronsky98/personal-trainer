@@ -27,11 +27,12 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     private val database = getDatabase(application)
     private val personalTrainerRepository = PersonalTrainerRepository(database)
 
-    val properties = personalTrainerRepository.advertisments
 
     init {
             refreshData()
     }
+
+    val properties = personalTrainerRepository.advertisments
 
     private fun refreshData() {
         viewModelScope.launch {

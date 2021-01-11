@@ -44,5 +44,4 @@ fun NetworkAdvertismentContainer.asDatabaseModel(): Array<DatabaseAdvertisment> 
                 price = it.price,
                 description = it.description)
     }.toTypedArray()
-
 }
